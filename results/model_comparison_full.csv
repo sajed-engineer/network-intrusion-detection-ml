@@ -1,0 +1,4 @@
+modèle,precision,recall,f1,roc_auc,temps_entraînement_s
+Random Forest,0.9953,0.9971,0.9962,0.9999,32.7
+XGBoost,0.9951,0.9991,0.9971,1.0,10.2
+Isolation Forest,0.7988,0.3881,0.5224,0.808,4.9
