@@ -40,6 +40,20 @@ Tableau de bord Streamlit (thème sombre) construit sur le modèle final :
 streamlit run app.py        # puis ouvrir http://localhost:8501
 ```
 
+### Aperçu
+
+**Analyse de flux** : indicateurs, distribution des scores, détection par type de trafic, ports visés, variables influentes et flux signalés.
+
+![Analyse de flux](docs/screenshots/01-analyse.png)
+
+**Rejeu en direct** : les flux défilent un par un avec leur score de risque et des alertes.
+
+![Rejeu en direct](docs/screenshots/03-rejeu.png)
+
+**Performances** : résultats du modèle final sur le jeu de test (499 596 flux), détection par type d'attaque et matrice de confusion.
+
+![Performances du modèle final](docs/screenshots/02-performances.png)
+
 > L'interface **rejoue des flux du dataset** : elle ne capture pas le réseau en direct, et les flux affichés ont pu servir à l'entraînement. Les performances de référence sont celles de l'onglet *Performances*.
 
 ## Pipeline
