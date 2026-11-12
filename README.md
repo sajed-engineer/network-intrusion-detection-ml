@@ -24,8 +24,23 @@ Modèle final : **99,96 % des attaques détectées**, **0,10 %** de fausses aler
 | FTP-Patator / SSH-Patator | 642 à 1 148 | > 99,5 % |
 | Web Attack Brute Force / XSS | 317 / 122 | 99,1 % / 95,1 % |
 | Bot | 375 | 93,1 % |
-| **Infiltration** | 6 | **16,7 %** |
+| **Infiltration** | 6 | **16,7 %** (3 sur 6 avec le modèle final : trop peu pour conclure) |
 | SQL Injection / Heartbleed | 4 / 2 | non significatif (trop peu d'exemples) |
+
+## Interface : NetGuard IDS
+
+Tableau de bord Streamlit (thème sombre) construit sur le modèle final :
+
+- **Analyse de flux** : choisis un fichier du dataset (ou importe un CSV au format CICFlowMeter), le modèle score chaque flux ; indicateurs, distribution des scores, détection par type de trafic, ports visés, variables influentes, tableau des flux signalés, export CSV.
+- **Rejeu en direct** : les flux défilent un par un avec leur score de risque et des alertes.
+- **Performances** : résultats du modèle final sur le jeu de test (précision, rappel, F1, matrice de confusion, détection par attaque) et comparaison des 3 approches.
+- **À propos** : méthode et limites.
+
+```bash
+streamlit run app.py        # puis ouvrir http://localhost:8501
+```
+
+> L'interface **rejoue des flux du dataset** : elle ne capture pas le réseau en direct, et les flux affichés ont pu servir à l'entraînement. Les performances de référence sont celles de l'onglet *Performances*.
 
 ## Pipeline
 
@@ -69,7 +84,13 @@ python -m src.preprocess
 # 2. Entraîner et sauvegarder le modèle final
 python -m src.train_final
 
-# 3. Lancer la démo de détection
+# 3. Calculer les métriques du modèle final (utilisées par l'interface)
+python -m src.export_metrics
+
+# 4. Lancer l'interface
+streamlit run app.py
+
+# (ou la démo en ligne de commande)
 python -m src.live_detect --csv "data/raw/archive/Wednesday-workingHours.pcap_ISCX.csv" --n 30 --delay 0.3
 ```
 
@@ -80,7 +101,8 @@ data/raw/          CSV du dataset (non versionnés)
 data/processed/    jeux prétraités (non versionnés)
 models/            modèle final (ids_xgboost.joblib)
 notebooks/         01 exploration, 02 prétraitement, 03 modèles, 04 évaluation complète
-src/               load_data, preprocess, evaluate, train_final, live_detect
+src/               load_data, preprocess, evaluate, train_final, export_metrics, live_detect
+app.py             interface NetGuard IDS (Streamlit)
 results/           graphiques et tableaux de résultats
 ```
 

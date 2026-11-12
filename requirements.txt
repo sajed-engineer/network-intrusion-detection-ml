@@ -7,3 +7,5 @@ seaborn
 jupyterlab
 scapy
 joblib
+streamlit
+plotly
